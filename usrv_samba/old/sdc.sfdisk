@@ -1,0 +1,6 @@
+label: dos
+label-id: 0xb53b6cb4
+device: /dev/sdc
+unit: sectors
+
+/dev/sdc1 : start=   104857600, size=  1572864001, type=83

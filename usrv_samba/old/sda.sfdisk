@@ -1,0 +1,11 @@
+label: gpt
+label-id: 5E66901F-E7C4-4907-961D-0AF99E733BCF
+device: /dev/sda
+unit: sectors
+first-lba: 34
+last-lba: 5860533134
+
+/dev/sda1 : start=        2048, size=  1953125000
+/dev/sda2 : start=  1953127048, size=  1953125000
+/dev/sda3 : start=  3906252048, size=  1953125000
+/dev/sda4 : start=  5859377048, size=     1156087

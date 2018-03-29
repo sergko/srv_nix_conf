@@ -1,0 +1,50 @@
+[global]
+	passwd chat = *Enter\snew\s*\spassword:* %n\n *Retype\snew\s*\spassword:* %n\n *password\supdated\ssuccessfully* .
+	log file = /var/log/samba/log.%m
+#	min protocol = SMB2
+	interfaces = 10.2.83.208/24 xenbr0
+	server services = +smb
+	workgroup = ZEON.LAN
+	map to guest = bad user
+	security = user
+	netbios name = UMATE
+	syslog = 0
+	panic action = /usr/share/samba/panic-action %d
+	passdb backend = tdbsam
+	server role = standalone server
+	os level = 20
+	pam password change = yes
+	dns proxy = no
+	bind interfaces only = yes
+	passwd program = /usr/bin/passwd %u
+	default = videocams
+	obey pam restrictions = yes
+	max log size = 1000
+	unix password sync = yes
+	server string = USRV (ZEON.LAN server)
+#   interfaces = 10.2.83.208/24 eth0
+#   interfaces = 10.2.83.208/24 enp4s0
+#   usershare allow guests = yes
+[videocams]
+path = /mnt/srv10tb/videocams
+read only = no
+available = yes
+browseable = no
+writable = yes
+guest ok = no
+public = no
+[serg]
+path = /home/serg
+read only = no
+available = yes
+browseable = yes
+writable = yes
+guest ok = no
+public = no
+
+
+
+[mnt]
+	writeable = yes
+	comment = mnt
+	path = /mnt

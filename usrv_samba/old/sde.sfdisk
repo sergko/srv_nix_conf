@@ -1,0 +1,6 @@
+label: dos
+label-id: 0x21f6cafa
+device: /dev/sde
+unit: sectors
+
+/dev/sde1 : start=        2048, size=    61698048, type=83, bootable

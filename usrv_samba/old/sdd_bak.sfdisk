@@ -1,0 +1,7 @@
+label: gpt
+label-id: 08EA8537-3973-4654-B2E4-BE0F3C770FC7
+device: /dev/sdd
+unit: sectors
+first-lba: 34
+last-lba: 5860533134
+

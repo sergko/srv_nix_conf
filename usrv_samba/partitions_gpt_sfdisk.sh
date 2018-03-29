@@ -1,0 +1,59 @@
+#!/bin/bash
+#https://superuser.com/questions/332252/how-to-create-and-format-a-partition-using-a-bash-script
+#run with:
+#sudo sh mk_partition.sh /dev/sdxxx
+#replace belove paramenters with your own:
+#NUM_PARTITIONS=5
+#PARTITION_SIZE="+10G" 
+
+if [ $# -eq 0 ]
+then
+  echo "input the device like: sudo sh mk_partition.sh /dev/sdd"
+  exit
+fi
+
+:'
+#SED_STRING="o"
+SED_STRING="g"
+TAIL="p
+w
+q
+"
+
+NEW_LINE="
+"
+LETTER_n="n"
+#EXTENDED_PART_NUM=4
+TGTDEV=$1
+'
+:' #multiline temporary comment :''
+SED_STRING="$SED_STRING$NEW_LINE"
+for i in $(seq $NUM_PARTITIONS)
+do
+  if [ $i -lt $EXTENDED_PART_NUM ]
+  then
+    SED_STRING="$SED_STRING$LETTER_n$NEW_LINE$NEW_LINE$NEW_LINE$NEW_LINE$PARTITION_SIZE$NEW_LINE"
+  fi
+  if [ $i -eq $EXTENDED_PART_NUM ]
+  then
+    SED_STRING="$SED_STRING$LETTER_n$NEW_LINE$NEW_LINE$NEW_LINE$NEW_LINE"
+    SED_STRING="$SED_STRING$LETTER_n$NEW_LINE$NEW_LINE$PARTITION_SIZE$NEW_LINE"
+  fi
+  if [ $i -gt $EXTENDED_PART_NUM ]
+  then
+    SED_STRING="$SED_STRING$LETTER_n$NEW_LINE$NEW_LINE$PARTITION_SIZE$NEW_LINE"
+  fi
+done
+SED_STRING="$SED_STRING$TAIL"
+'
+#SED_STRING="$SED_STRING$NEW_LINE"
+#SED_STRING="$SED_STRIN$NEW_LINE$TAIL"
+#sed -e 's/\s*\([\+0-9a-zA-Z]*\).*/\1/' << EOF | fdisk ${TGTDEV}
+#  $SED_STRING
+
+#sudo sfdisk -d /dev/sdd > sdd.sfdisk # create of script from existing disk
+#sudo sfdisk /dev/sdd< sda.sfdisk # implement from config file
+#sfdisk \
+#--label gpt
+
+EOF
