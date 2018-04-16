@@ -1,0 +1,136 @@
+# Global parameters
+[global]
+	log file = /var/log/samba/%m
+	map to guest = Bad User
+	security = USER
+	server min protocol = SMB2
+	server role = standalone server
+	workgroup = ZEON.LAN
+	idmap config * : backend = tdb
+
+
+[zfs]
+	browseable = No
+	comment = access for smbu:@smbg rw
+	create mask = 0660
+	directory mask = 0770
+	path = /mnt/zfs
+	read only = No
+	valid users = @smbg
+
+
+[zfs2]
+	browseable = No
+	comment = access for smbu:@smbg rw
+	create mask = 0660
+	directory mask = 0770
+	path = /mnt/zfs2
+	read only = No
+	valid users = @smbg
+
+
+[zfs3]
+	browseable = No
+	comment = access for smbu:@smbg ro
+	create mask = 0660
+	directory mask = 0770
+	path = /mnt/zfs3
+	read only = No
+	valid users = @smbg
+
+
+[Soft]
+	comment = access for smbu ro
+	create mask = 0660
+	directory mask = 0770
+	path = /mnt/zfs/Soft
+	valid users = @smbg
+
+
+[ISOs]
+	comment = access for smbu ro
+	create mask = 0660
+	directory mask = 0770
+	path = /mnt/zfs/ISOs
+	valid users = @smbg
+
+
+[Mult_CCCP]
+	comment = access for smbu ro
+	create mask = 0660
+	directory mask = 0770
+	path = /mnt/zfs/Mult_CCCP
+	valid users = @smbg
+
+
+[Serials]
+	comment = access for smbu ro
+	create mask = 0660
+	directory mask = 0770
+	path = /mnt/zfs/Serials
+	valid users = @smbg
+
+
+[Video]
+	comment = access for smbu ro
+	create mask = 0660
+	directory mask = 0770
+	path = /mnt/zfs/Video
+	valid users = @smbg
+
+
+[AudioBooks]
+	comment = access for smbu ro
+	create mask = 0660
+	directory mask = 0770
+	path = /mnt/zfs2/AudioBooks
+	valid users = @smbu
+
+
+[Games]
+	comment = access for smbu ro
+	create mask = 0660
+	directory mask = 0770
+	path = /mnt/zfs2/Games
+	valid users = @smbg
+
+
+[Mult]
+	comment = access for smbu ro
+	create mask = 0660
+	directory mask = 0770
+	path = /mnt/zfs2/Mult
+	valid users = @smbg
+
+
+[Music4Kids]
+	comment = access for smbu ro
+	create mask = 0660
+	directory mask = 0770
+	path = /mnt/zfs2/Music4Kids
+	valid users = @smbg
+
+
+[Serials_doc]
+	comment = access for smbu ro
+	create mask = 0660
+	directory mask = 0770
+	path = /mnt/zfs2/Serials_doc
+	valid users = @smbg
+
+
+[Downloads]
+	comment = access for smbu ro
+	create mask = 0660
+	directory mask = 0770
+	path = /mnt/zfs3/Downloads
+	valid users = @smbg
+
+
+[news]
+	comment = access for smbu rw
+	create mask = 0660
+	directory mask = 0770
+	path = /mnt/zfs3/news
+	read only = No
+	valid users = @smbg

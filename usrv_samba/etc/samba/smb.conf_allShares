@@ -1,0 +1,211 @@
+#smb_minimal.conf
+[global]
+	workgroup = ZEON.LAN
+	netbios name = UMATE
+	min protocol = SMB2
+#	max protocol = SMB2
+	server role = standalone server
+	encrypt passwords = yes
+	security = user
+#	usershare owner only = false # to allow not only owner share folder - not worked yet(
+	map to guest = Bad User
+	log file = /var/log/samba/%m
+#	log level = 1
+#	log level = 5
+	log level = 1 auth:5 winbind:5
+#	log level = 2, vfs:1		#for 'recycle'
+
+#[flash]
+## This share allows anonymous (guest) access
+## without authentication!
+#	comment = anonymous access rw
+#	path = /mnt/flash
+#	read only = no
+#	guest ok = yes
+#[user]
+## This share allows auth user access
+## with authentication!
+#	comment = access for smbu:@smbg rw
+#	path = /mnt/user
+#	read only = no
+#	writeable = Yes
+#	guest ok = no
+#	valid users = smbu
+##	valid users = @smbg,
+##	write list = «smbu»,
+#	create mode = 0660
+#	directory mode = 0770
+[zfs]
+# This share allows auth user access
+# with authentication!
+	comment = access for smbu:@smbg rw
+	path = /mnt/zfs
+	read only = no
+	writeable = Yes
+#	read only = yes
+#	writeable = no
+	guest ok = no
+#	browsable = yes
+	browsable = no
+#	valid users = smbu
+	valid users = @smbg
+#	write list = «smbu»,
+	create mode = 0660
+	directory mode = 0770
+[zfs2]
+# This share allows auth user access
+# with authentication!
+	comment = access for smbu:@smbg rw
+	path = /mnt/zfs2
+	read only = no
+	writeable = Yes
+#	read only = yes
+#	writeable = no
+	guest ok = no
+#	browsable = yes
+	browsable = no
+#	valid users = smbu
+	valid users = @smbg
+#	write list = «smbu»,
+	create mode = 0660
+	directory mode = 0770
+[zfs3]
+# This share allows auth user access
+# with authentication!
+	comment = access for smbu:@smbg ro
+	path = /mnt/zfs3
+	read only = no
+	writeable = yes
+#	read only = yes
+#	writeable = no
+	guest ok = no
+#	browsable = yes
+	browsable = no
+#	valid users = smbu
+	valid users = @smbg
+#	write list = «smbu»,
+	create mode = 0660
+	directory mode = 0770
+
+#Shared RO for ZEON.LAN and user smbu%1
+
+[Soft]
+	comment = access for smbu ro
+	path = /mnt/zfs/Soft
+#	read only = no
+#	writeable = Yes
+	read only = yes
+	writeable = no
+	guest ok = no
+#	valid users = smbu
+	valid users = @smbg
+#	write list = «smbu»,
+	create mode = 0660
+	directory mode = 0770
+[ISOs]
+	comment = access for smbu ro
+	path = /mnt/zfs/ISOs
+	read only = yes
+	writeable = no
+	guest ok = no
+	valid users = @smbg
+	create mode = 0660
+	directory mode = 0770
+[Mult_CCCP]
+	comment = access for smbu ro
+	path = /mnt/zfs/Mult_CCCP
+	read only = yes
+	writeable = no
+	guest ok = no
+	valid users = @smbg
+	create mode = 0660
+	directory mode = 0770
+[Serials]
+	comment = access for smbu ro
+	path = /mnt/zfs/Serials
+	read only = yes
+	writeable = no
+	guest ok = no
+	valid users = @smbg
+	create mode = 0660
+	directory mode = 0770
+[Video]
+	comment = access for smbu ro
+	path = /mnt/zfs/Video
+	read only = yes
+	writeable = no
+	guest ok = no
+	valid users = @smbg
+	create mode = 0660
+	directory mode = 0770
+
+#ZFS2
+
+[AudioBooks]
+	comment = access for smbu ro
+	path = /mnt/zfs2/AudioBooks
+	read only = yes
+	writeable = no
+	guest ok = no
+	valid users = @smbu
+	create mode = 0660
+	directory mode = 0770
+[Games]
+	comment = access for smbu ro
+	path = /mnt/zfs2/Games
+	read only = yes
+	writeable = no
+	guest ok = no
+	valid users = @smbg
+	create mode = 0660
+	directory mode = 0770
+[Mult]
+	comment = access for smbu ro
+	path = /mnt/zfs2/Mult
+	read only = yes
+	writeable = no
+	guest ok = no
+	valid users = @smbg
+	create mode = 0660
+	directory mode = 0770
+[Music4Kids]
+	comment = access for smbu ro
+	path = /mnt/zfs2/Music4Kids
+	read only = yes
+	writeable = no
+	guest ok = no
+	valid users = @smbg
+	create mode = 0660
+	directory mode = 0770
+[Serials_doc]
+	comment = access for smbu ro
+	path = /mnt/zfs2/Serials_doc
+	read only = yes
+	writeable = no
+	guest ok = no
+	valid users = @smbg
+	create mode = 0660
+	directory mode = 0770
+
+#ZFS3
+
+[Downloads]
+	comment = access for smbu ro
+	path = /mnt/zfs3/Downloads
+	read only = yes
+	writeable = no
+	guest ok = no
+	valid users = @smbg
+	create mode = 0660
+	directory mode = 0770
+[news]
+	comment = access for smbu rw
+	path = /mnt/zfs3/news
+#	read only = yes
+#	writeable = no
+	read only = no
+	writeable = yes
+	guest ok = no
+	valid users = @smbg
+	create mode = 0660
+	directory mode = 0770
