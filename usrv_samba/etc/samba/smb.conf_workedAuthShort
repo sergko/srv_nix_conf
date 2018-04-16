@@ -1,0 +1,36 @@
+#smb_minimal.conf
+[global]
+	workgroup = ZEON.LAN
+	netbios name = UMATE
+	min protocol = SMB2
+#	max protocol = SMB2
+	server role = standalone server
+	encrypt passwords = yes
+	security = user
+	map to guest = Bad User
+	log file = /var/log/samba/%m
+	log level = 1
+#	log level = 5
+#	log level = 1 auth:5 winbind:5
+#	log level = 2, vfs:1		#for 'recycle'
+
+[flash]
+# This share allows anonymous (guest) access
+# without authentication!
+	comment = anonymous access rw
+	path = /mnt/flash
+	read only = no
+	guest ok = yes
+[user]
+# This share allows auth user access
+# with authentication!
+	comment = access for smbu:@smbg rw
+	path = /mnt/user
+	read only = no
+	writeable = Yes
+	guest ok = no
+	valid users = smbu
+#	valid users = @smbg,
+#	write list = «smbu»,
+	create mode = 0660
+	directory mode = 0770

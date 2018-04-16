@@ -1,0 +1,57 @@
+#smb_minimal.conf
+[global]
+	workgroup = ZEON.LAN
+#	netbios name = USRV
+	netbios name = UMATE
+	min protocol = SMB2
+#	max protocol = SMB2
+server role = standalone server
+encrypt passwords = yes
+    security = user
+   passdb backend = tdbsam
+   obey pam restrictions = yes
+   unix password sync = yes
+   passwd program = /usr/bin/passwd %u
+   passwd chat = *Enter\snew\s*\spassword:* %n\n *Retype\snew\s*\spassword:* %n\n *password\su
+   pam password change = yes
+    map to guest = Bad User
+#client schannel   = auto
+#client signing    = auto
+#client use spnego = yes
+        log file = /var/log/samba/%m
+#        log level = 1
+#        log level = 5
+        log level = 1 auth:5 winbind:5
+#         log level = 2, vfs:1		#for 'recycle'
+
+[flash]
+        # This share allows anonymous (guest) access
+        # without authentication!
+	comment = anonymous access rw
+        path = /mnt/flash
+        read only = no
+        guest ok = yes
+[user]
+        # This share allows auth user access
+        # with authentication!
+	comment = access for smbu:@smbg rw
+        path = /mnt/user
+        read only = no
+        writeable = Yes
+        guest ok = no
+#	valid users = «smbu»,
+	valid users = smbu
+#	valid users = @smbg,
+#	write list = «smbu»,
+	create mode = 0660
+	directory mode = 0770
+#        inherit owner = Yes
+#         vfs objects = recycle extd_audit
+#         recycle:repository = Recycle Bin
+#         recycle:directory_mode = 707
+#         recycle:keeptree = yes
+#         recycle:versions = no
+#         recycle:touch = yes
+#         recycle:touch_mtime = no
+#         recycle:maxsize = 209715200
+#         recycle:exclude = *.tmp *.temp ~$* *.~??
