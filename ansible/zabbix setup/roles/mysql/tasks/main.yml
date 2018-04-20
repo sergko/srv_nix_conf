@@ -1,0 +1,29 @@
+---
+- name: Mysql check
+  stat: path=/etc/init.d/mysql
+  register: mysql_installed
+
+- name: Update apt cache
+  apt: update_cache=yes
+  when: mysql_installed.stat.exists == false
+
+- name: Install list of pkgs
+  apt: name={{ item }} state=installed
+  with_items:
+     - python-mysqldb
+
+- name: MySQL 
+  apt: "name=mysql-server state=installed"
+
+- name: DB creation
+  mysql_db:
+    name: zabbix_db
+    state: present
+
+- name: User creation
+  mysql_user:
+    name: u_zabbix
+    password: p_zabbix
+    login_host: localhost
+    priv: 'zabbix_db.*:ALL,GRANT'
+    state: present

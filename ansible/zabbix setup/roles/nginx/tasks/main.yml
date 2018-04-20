@@ -1,0 +1,14 @@
+---
+
+- name: stop apache2
+  service: 
+   name: apache2
+   state: stopped
+  
+- name: nginx check
+  stat: path=/etc/init.d/nginx
+  register: nginx_installed
+
+- name: nginx  
+  apt: "name=nginx state=installed"
+

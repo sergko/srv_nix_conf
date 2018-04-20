@@ -1,0 +1,50 @@
+---
+
+    
+- name: Change zabbix server port
+  replace:
+    path: /etc/zabbix/zabbix_server.conf
+    regexp: '^# ListenPort=10051$'
+    replace: 'ListenPort=10051'
+    
+
+- name: Change zabbix server db_host
+  replace:
+    path: /etc/zabbix/zabbix_server.conf
+    regexp:  '^# DBHost=localhost$'
+    replace: 'DBHost=localhost'
+    
+- name: Change zabbix server db_name
+  replace:
+    path: /etc/zabbix/zabbix_server.conf
+    regexp: '^DBName=zabbix$'
+    replace: 'DBName=zabbix_db'
+    
+- name: Change zabbix server db_user
+  replace:
+    path: /etc/zabbix/zabbix_server.conf
+    regexp: '^DBUser=zabbix$'
+    replace: 'DBUser=u_zabbix'
+
+    
+- name: Change zabbix server db_pass
+  replace:
+    path: /etc/zabbix/zabbix_server.conf
+    regexp: '^# DBPassword=$'
+    replace: 'DBPassword=p_zabbix'
+
+- name: Change zabbix server db_port
+  replace:
+    path: /etc/zabbix/zabbix_server.conf
+    regexp: '^# DBPort=3306$'
+    replace: 'DBPort=3306'
+
+- name: DB-schema loading
+  shell: |
+    zcat /usr/share/doc/zabbix-server-mysql/create.sql.gz | mysql -u u_zabbix -pp_zabbix zabbix_db
+
+
+- name: service
+  service:
+    name: zabbix-server
+    state: restarted

@@ -1,0 +1,9 @@
+---
+
+- name: Install list of php pkgs
+  apt: name={{ item }} state=installed
+  with_items:
+     - php7.0-bcmath
+     - php7.0-fpm
+     - php7.0-xml
+     - php7.0-mbstring

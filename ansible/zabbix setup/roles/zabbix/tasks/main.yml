@@ -1,0 +1,17 @@
+---
+- name: add repo
+  apt:
+   deb:  http://repo.zabbix.com/zabbix/3.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_3.0-1+xenial_all.deb
+
+- name: Update apt cache
+  apt: update_cache=yes
+  
+- name: Install list of pkgs
+  apt: name={{ item }} state=installed
+  with_items:
+     - zabbix-server-mysql
+     - zabbix-frontend-php
+- name: service
+  service:
+    name: zabbix-server
+    state: started

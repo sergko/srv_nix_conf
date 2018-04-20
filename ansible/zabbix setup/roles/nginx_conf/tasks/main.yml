@@ -1,0 +1,90 @@
+---
+
+- name: Create config file
+  command: touch /etc/nginx/conf.d/zabbix.conf
+
+- name: create zabbix.conf for nginx
+  blockinfile:
+    path: /etc/nginx/conf.d/zabbix.conf
+    block: |
+     server {
+        listen 80;
+        server_name _;
+        root /usr/share/zabbix;
+        index index.php index.html;
+        
+        location ~ \.php$ {
+                fastcgi_pass unix:/var/run/zabbix.socket;
+                include fastcgi_params;
+                fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+                fastcgi_param SCRIPT_NAME $fastcgi_script_name;
+        }
+        
+        location ~*  \.(jpg|jpeg|png|gif|css|js|ico)$ {
+                expires max;
+                log_not_found off;
+        }
+        
+        location ~ /\.ht {
+        deny all;
+        }
+        
+        location ~ /\. {
+        deny all;
+        }
+        }
+
+- name: remove sites-enabled/default
+  command: rm -f /etc/nginx/sites-enabled/default
+
+- name: create new sites-enabled/default
+  command: touch /etc/nginx/sites-enabled/default
+
+- name: insert config text
+  blockinfile:
+    path: /etc/nginx/sites-enabled/default
+    block: |
+     ##
+     # You should look at the following URL's in order to grasp a solid understanding
+     # of Nginx configuration files in order to fully unleash the power of Nginx.
+     # http://wiki.nginx.org/Pitfalls
+     # http://wiki.nginx.org/QuickStart
+     # http://wiki.nginx.org/Configuration
+     #
+     # Generally, you will want to move this file somewhere, and start with a clean
+     # file but keep this around for reference. Or just disable in sites-enabled.
+     #
+     # Please see /usr/share/doc/nginx-doc/examples/ for more detailed examples.
+     ##
+
+     # Default server configuration
+     #
+        server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+        
+        
+        root /usr/share/zabbix;
+        
+        # Add index.php to the list if you are using PHP
+        index index.html index.htm index.nginx-debian.html index.php;
+        
+        server_name _;
+        
+        location / {
+                try_files $uri $uri/ index.html index.php;
+        }
+        
+        location ~ \.php$ {
+                include snippets/fastcgi-php.conf;
+                
+                fastcgi_pass unix:/run/php/php7.0-fpm.sock;
+        }
+        
+        }
+
+- name: service nginx
+  service:
+    name: nginx
+    state: restarted
+

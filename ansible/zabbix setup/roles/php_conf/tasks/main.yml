@@ -1,0 +1,67 @@
+---
+
+
+- name: Change php_max_size
+  replace:
+    path: /etc/php/7.0/fpm/php.ini
+    regexp: '^post_max_size = 8M'
+    replace: 'post_max_size = 16M'
+
+- name: Change max_execution_time
+  replace:
+    path: /etc/php/7.0/fpm/php.ini
+    regexp: '^max_execution_time = 30'
+    replace: 'max_execution_time = 300'
+
+- name: Change max_input_time
+  replace:
+    path: /etc/php/7.0/fpm/php.ini
+    regexp: '^max_input_time = 60'
+    replace: 'max_input_time = 300'
+
+- name: Change date.timezone
+  replace:
+    path: /etc/php/7.0/fpm/php.ini
+    regexp: '^;date.timezone ='
+    replace: 'date.timezone = Europe/Kiev'
+
+
+- name: add lines to php.config
+  blockinfile:
+   path: /etc/php/7.0/fpm/pool.d/www.conf
+   block: |
+     [zabbix]
+     user = www-data
+     group = www-data
+     
+     listen = /var/run/zabbix.socket
+     listen.owner = www-data
+     listen.group = www-data
+     	
+     pm = dynamic
+     pm.max_children = 4
+     pm.start_servers = 1
+     pm.min_spare_servers = 1
+     pm.max_spare_servers = 4
+     php_value[post_max_size] = 16M
+     php_value[max_execution_time] = 300
+     php_value[max_input_time] = 300
+     php_value[open_basedir] = /usr/share/zabbix/:/usr/share/fonts/:/tmp
+
+- name: coment Bigin input 
+  replace:
+    path: /etc/php/7.0/fpm/pool.d/www.conf
+    regexp: '^# BEGIN ANSIBLE MANAGED BLOCK'
+    replace: ';# BEGIN ANSIBLE MANAGED BLOCK'
+
+- name: coment end input
+  replace:
+    path: /etc/php/7.0/fpm/pool.d/www.conf
+    regexp: '^# END ANSIBLE MANAGED BLOCK'
+    replace: ';# END ANSIBLE MANAGED BLOCK'
+
+
+- name: service php-fpm
+  service:
+    name: php7.0-fpm
+    state: restarted

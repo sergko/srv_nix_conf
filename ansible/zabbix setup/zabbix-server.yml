@@ -1,0 +1,13 @@
+---
+#Playbook to setup zabbix+mysql+nginx
+
+- name: roles for setup zabbix, mysql, nginx
+  roles:
+
+   - { role: mysql}
+   - { role: zabbix}
+   - { role: zabb-conf}
+   - { role: nginx}
+   - { role: php_setup}
+   - { role: php_conf}
+   - { role: nginx_conf}
