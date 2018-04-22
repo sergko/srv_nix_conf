@@ -1,5 +1,3 @@
-#--with-cc-opt='-g -O2 -fdebug-prefix-map=/build/nginx-mcUg8N/nginx-1.14.0=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC -Wdate-time -D_FORTIFY_SOURCE=2' \
-#--with-ld-opt='-Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -fPIC' \
 ./configure \
 --prefix=/etc/nginx                   \
 --sbin-path=/usr/sbin/nginx           \
@@ -8,8 +6,17 @@
 --lock-path=/var/run/nginx.lock       \
 --error-log-path=/var/log/nginx/error.log \
 --http-log-path=/var/log/nginx/access.log \
+--http-client-body-temp-path=/var/lib/nginx/client_temp \
+--http-proxy-temp-path=/var/lib/nginx/proxy_temp \
+--http-fastcgi-temp-path=/var/lib/nginx/fastcgi_temp \
+--http-uwsgi-temp-path=/var/lib/nginx/uwsgi_temp \
+--http-scgi-temp-path=/var/lib/nginx/scgi_temp \
+--user=www-data \
+--group=www-data \
 --add-module=/usr/src/ngx_devel_kit-0.3.0 \
 --add-module=/usr/src/lua-nginx-module-0.10.12 \
+--with-cc-opt='-g -O2 -fdebug-prefix-map=/build/nginx-mcUg8N/nginx-1.14.0=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC -Wdate-time -D_FORTIFY_SOURCE=2' \
+--with-ld-opt='-Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -fPIC' \
 --modules-path=/usr/lib/nginx/modules \
 --http-client-body-temp-path=/var/lib/nginx/body \
 --http-fastcgi-temp-path=/var/lib/nginx/fastcgi \
