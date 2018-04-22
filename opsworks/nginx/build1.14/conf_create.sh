@@ -19,8 +19,9 @@ echo '--http-fastcgi-temp-path=/var/lib/nginx/fastcgi_temp \' >> conf.sh
 echo '--http-uwsgi-temp-path=/var/lib/nginx/uwsgi_temp \' >> conf.sh
 echo '--http-scgi-temp-path=/var/lib/nginx/scgi_temp \' >> conf.sh
 echo '--user=www-data \' >> conf.sh
-echo '--group=www-data \' >> conf.shecho  '--add-module=/usr/src/ngx_devel_kit-0.3.0 \' >> conf.sh
-echo  '--add-module=/usr/src/lua-nginx-module-0.10.12 \' >> conf.sh
+echo '--group=www-data \' >> conf.sh
+echo '--add-module=/usr/src/ngx_devel_kit-0.3.0 \' >> conf.sh
+echo '--add-module=/usr/src/lua-nginx-module-0.10.12 \' >> conf.sh
 echo "--with-cc-opt='-g -O2 -fdebug-prefix-map=/build/nginx-mcUg8N/nginx-1.14.0=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC -Wdate-time -D_FORTIFY_SOURCE=2' \\" >> conf.sh
 echo "--with-ld-opt='-Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -fPIC' \\" >> conf.sh
 echo '--modules-path=/usr/lib/nginx/modules \' >> conf.sh
