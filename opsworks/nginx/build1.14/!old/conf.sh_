@@ -1,0 +1,4 @@
+#!/bin/bash
+./configure \
+--add-module=/usr/src/ngx_devel_kit-0.3.0 \
+--add-module=/usr/src/lua-nginx-module-0.10.12

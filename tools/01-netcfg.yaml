@@ -1,0 +1,15 @@
+#nano /etc/netplan/01-netcfg.yaml
+network:
+ version: 2
+ renderer: networkd
+ ethernets:
+   ens32:
+     dhcp4: no
+     dhcp6: no
+     addresses: [10.2.82.102/22]
+     gateway4: 10.2.83.11
+     nameservers:
+       addresses: [10.2.83.11,8.8.8.8,8.8.4.4]
+
+
+#sudo netplan apply
