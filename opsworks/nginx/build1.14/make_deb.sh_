@@ -6,5 +6,5 @@ checkinstall \
 --install=no \
 --maintainer=sergey.kovbyk@gmail.com \
 --pkgname=nginx-opswork \
---pkgrelease=0.4 \
+--pkgrelease=0.2 \
 -y
