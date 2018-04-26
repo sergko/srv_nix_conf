@@ -1,0 +1,35 @@
+#build step 1
+#configure mini
+#print executed folder
+#pwd
+#--add-module=/usr/src/ngx_devel_kit-0.3.0 \
+#--add-module=/usr/src/lua-nginx-module-0.10.12 \
+test -d './modules' || mkdir modules
+cd modules
+test -f './v0.3.0.tar.gz' || wget https://github.com/simplresty/ngx_devel_kit/archive/v0.3.0.tar.gz
+test -f './v0.10.12.tar.gz' || wget https://github.com/openresty/lua-nginx-module/archive/v0.10.12.tar.gz
+test -d './ngx_devel_kit-0.3.0' || tar -xf v0.3.0.tar.gz
+test -d './lua-nginx-module-0.10.12' || tar -xf v0.10.12.tar.gz
+cd ..
+test -f './configure' || mv ./auto/configure .
+make clean
+./configure \
+--prefix=/etc/nginx                   \
+--sbin-path=/usr/sbin/nginx           \
+--conf-path=/etc/nginx/nginx.conf     \
+--pid-path=/var/run/nginx.pid         \
+--lock-path=/var/run/nginx.lock       \
+--error-log-path=/var/log/nginx/error.log \
+--http-log-path=/var/log/nginx/access.log \
+--http-client-body-temp-path=/var/lib/nginx/client_temp \
+--http-proxy-temp-path=/var/lib/nginx/proxy_temp \
+--http-fastcgi-temp-path=/var/lib/nginx/fastcgi_temp \
+--http-uwsgi-temp-path=/var/lib/nginx/uwsgi_temp \
+--http-scgi-temp-path=/var/lib/nginx/scgi_temp \
+--user=www-data \
+--group=www-data \
+--add-module=./modules/ngx_devel_kit-0.3.0 \
+--add-module=./modules/lua-nginx-module-0.10.12 \
+--modules-path=/usr/lib/nginx/modules \
+--with-debug \
+--with-threads 
