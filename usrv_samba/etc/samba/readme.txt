@@ -11,8 +11,10 @@ passwd smbu
 groupadd smbg
 usermod -G smbg smbu
 
+######IMPORTANT#############
 smbpasswd -a smbu #add samba user + passwrd
 smbpasswd -e smbu # enable / -d disable
+############################
 
 chown -R smbu /mnt/ztest/
 chgrp -R smbg /mnt/ztest/
